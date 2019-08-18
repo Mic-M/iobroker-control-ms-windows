@@ -161,8 +161,11 @@ function doSubscriptions() {
             // Next, get the ip
             let ip = getConfigValuePerKey(CONFIG_DEVICES, 'name', stateDevice, 'ip');
 
-            getAdminSendCommand(name, ip, 'key', obj.state.val);
-
+            if( (ip != -1) ) {
+                getAdminSendCommand(name, ip, 'key', obj.state.val);
+            } else {
+                log('No configration found for ' + stateDevice, 'warn');
+            }
         });
 
     }
