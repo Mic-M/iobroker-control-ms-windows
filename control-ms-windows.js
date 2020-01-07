@@ -8,7 +8,8 @@
  * Support:             https://forum.iobroker.net/topic/1570/windows-steuerung
  * ---------------------------
  * Change Log:
- *  0.1 Mic  - Initial Version
+ *  0.2  Mic  - Fix: disregard empty values in GETADMIN_COMMANDS_OWN
+ *  0.1  Mic  - Initial Version
  * ---------------------------
  * Many thanks to Vladimir Vilisov for GetAdmin. Check out his website at
  * https://blog.instalator.ru/archives/47
@@ -217,7 +218,7 @@ function createStates() {
 
         // Create User Specific Command States
         if (! isLikeEmpty(GETADMIN_COMMANDS_OWN)) {
-            for (let lpCommand of GETADMIN_COMMANDS_OWN) {
+            for (let lpCommand of cleanArray(GETADMIN_COMMANDS_OWN)) {
                 createState(statePath + '.' + lpCommand, {'name':'User Command: ' + lpCommand, 'type':'boolean', 'read':false, 'write':true, 'role':'button', 'def':false });
             }
         }
